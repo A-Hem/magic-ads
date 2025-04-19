@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Event Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Optional: Add minor custom styles here if needed */
+        #results-output {
+            white-space: pre-wrap; /* Preserve whitespace and wrap */
+            word-wrap: break-word;
+            background-color: #f9fafb; /* Slightly off-white background */
+            border: 1px solid #e5e7eb; /* Light gray border */
+            padding: 1rem;
+            border-radius: 0.375rem; /* Rounded corners */
+            margin-top: 0.5rem;
+            min-height: 100px; /* Ensure it has some height */
+            max-height: 60vh; /* Prevent it from getting too tall */
+            overflow-y: auto; /* Add scroll if content overflows */
+        }
+        /* Simple spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #09f;
+            animation: spin 1s ease infinite;
+            margin: 1rem auto; /* Center it */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
+
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Hyper-Specific Local Event Finder</h1>
+            <p class="text-gray-600 mt-2">Describe the events you're looking for in Blaine, MN!</p>
+        </header>
+
+        <main class="bg-white p-6 rounded-lg shadow-md">
+            <div class="mb-6">
+                <label for="interest-input" class="block text-sm font-medium text-gray-700 mb-1">Describe the type of event you're interested in:</label>
+                <textarea id="interest-input" rows="4" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-2" placeholder="e.g., volunteer opportunities involving gardening, free coding workshops for kids, live acoustic music at coffee shops, board game meetups for adults..."></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label for="location-input" class="block text-sm font-medium text-gray-700 mb-1">Location:</label>
+                <input type="text" id="location-input" value="Blaine, MN" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-2 bg-gray-50" readonly title="Location is currently fixed">
+                 <p class="text-xs text-gray-500 mt-1">Location is currently set to Blaine, MN.</p>
+            </div>
+
+            <div class="text-center mb-6">
+                <button id="find-button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50">
+                    Find Events
+                </button>
+            </div>
+
+            <div id="loading-indicator" class="text-center my-4" style="display: none;">
+                <div class="spinner"></div>
+                <p class="text-gray-600">Searching for events...</p>
+            </div>
+
+            <div id="error-area" class="my-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded" style="display: none;">
+                <p><strong class="font-bold">Error:</strong> <span id="error-message"></span></p>
+            </div>
+
+            <div id="results-area" class="mt-8" style="display: none;">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">Found Events:</h2>
+                <div id="results-output" class="text-sm text-gray-800">
+                    </div>
+            </div>
+             <div id="no-results-area" class="mt-8 text-center text-gray-600" style="display: none;">
+                 <p>No specific events found matching your description.</p>
+             </div>
+
+        </main>
+
+        <footer class="text-center text-gray-500 text-xs mt-8">
+            Powered by AI | Current Location: Blaine, MN | Time: <span id="current-time"></span>
+        </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
